@@ -3,7 +3,7 @@ const IVA_VALOR = 0.16;
 document.getElementById('btn-cotizar').addEventListener('click', procesarSimulacion);
 document.getElementById('btn-limpiar').addEventListener('click', limpiarFormulario);
 document.getElementById('monto').addEventListener('input', actualizarTotalesFinanciamiento);
-document.getElementById('comision-apertura').addEventListener('input', actualizarTotalesFinanciamiento);
+document.getElementById('comision-porcentaje').addEventListener('change', actualizarTotalesFinanciamiento);
 
 function formatearMoneda(valor) {
     return valor.toLocaleString('es-MX', {
@@ -14,18 +14,25 @@ function formatearMoneda(valor) {
     });
 }
 
+function obtenerComisionApertura() {
+    const monto = parseFloat(document.getElementById('monto').value) || 0;
+    const porcentaje = parseFloat(document.getElementById('comision-porcentaje').value) || 0;
+    return monto * (porcentaje / 100);
+}
+
 function obtenerTotalFinanciar() {
     const monto = parseFloat(document.getElementById('monto').value) || 0;
-    const comision = parseFloat(document.getElementById('comision-apertura').value) || 0;
+    const comision = obtenerComisionApertura();
     const ivaComision = comision * IVA_VALOR;
     return monto + comision + ivaComision;
 }
 
 function actualizarTotalesFinanciamiento() {
-    const comision = parseFloat(document.getElementById('comision-apertura').value) || 0;
+    const comision = obtenerComisionApertura();
     const ivaComision = comision * IVA_VALOR;
     const totalFinanciar = obtenerTotalFinanciar();
 
+    document.getElementById('comision-apertura').value = formatearMoneda(comision);
     document.getElementById('iva-apertura').value = formatearMoneda(ivaComision);
     document.getElementById('total-financiar').value = formatearMoneda(totalFinanciar);
 }
@@ -100,7 +107,7 @@ function procesarSimulacion() {
 function limpiarFormulario() {
     document.getElementById('credit-form').reset();
     document.getElementById('monto').value = '150000';
-    document.getElementById('comision-apertura').value = '0';
+    document.getElementById('comision-porcentaje').value = '1';
     document.getElementById('tasa').value = '34';
     document.getElementById('plazo').value = '48';
 
