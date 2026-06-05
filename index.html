@@ -8,9 +8,15 @@
 </head>
 <body>
     <div class="container">
-        <h1>Simulador de Crédito Personal</h1>
-        <p class="subtitle">Amortización constante · Saldos insolutos · IVA sobre intereses</p>
+        <h1>Crédito Personal</h1>
+        <p class="subtitle"> · Saldos insolutos · IVA sobre intereses</p>
 
+        <nav class="tabs">
+            <button type="button" class="tab-btn active" data-tab="cotizacion">Cotización</button>
+            <button type="button" class="tab-btn" data-tab="amortizacion">Amortización</button>
+        </nav>
+
+        <div id="tab-cotizacion" class="tab-panel active">
         <form id="credit-form">
             <label for="nombre-cliente">Nombre del Cliente:</label>
             <input type="text" id="nombre-cliente" placeholder="Ej. Juan Pérez García" required>
@@ -51,7 +57,7 @@
         </form>
 
         <section id="resumen" class="resumen hidden">
-            <h2>Resumen de la Simulación</h2>
+            <h2>Resumen del Prestamo</h2>
             <div class="resumen-grid">
                 <div class="resumen-item">
                     <span class="resumen-label">Pago mensual promedio</span>
@@ -71,26 +77,30 @@
                 </div>
             </div>
         </section>
+        </div>
 
-        <section class="tabla-section">
-            <h2>Tabla de Amortización</h2>
-            <div class="tabla-wrapper">
-                <table id="tabla-amortizacion">
-                    <thead>
-                        <tr>
-                            <th>Periodo</th>
-                            <th>Saldo Inicial</th>
-                            <th>Amortización Capital</th>
-                            <th>Interés</th>
-                            <th>IVA (16%)</th>
-                            <th>Pago Mensual</th>
-                            <th>Saldo Final</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </section>
+        <div id="tab-amortizacion" class="tab-panel">
+            <section class="tabla-section">
+                <h2>Tabla de Pagos</h2>
+                <p id="tabla-vacia" class="tabla-vacia">Cotiza un crédito para ver la tabla de amortización.</p>
+                <div class="tabla-wrapper hidden">
+                    <table id="tabla-amortizacion">
+                        <thead>
+                            <tr>
+                                <th>Periodo</th>
+                                <th>Saldo Inicial</th>
+                                <th>Amortización Capital</th>
+                                <th>Interés</th>
+                                <th>IVA (16%)</th>
+                                <th>Pago Mensual</th>
+                                <th>Saldo Final</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
     </div>
 
     <script src="script.js"></script>

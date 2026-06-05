@@ -4,6 +4,25 @@ document.getElementById('btn-cotizar').addEventListener('click', procesarSimulac
 document.getElementById('btn-limpiar').addEventListener('click', limpiarFormulario);
 document.getElementById('monto').addEventListener('input', actualizarTotalesFinanciamiento);
 document.getElementById('comision-porcentaje').addEventListener('change', actualizarTotalesFinanciamiento);
+document.querySelectorAll('.tab-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+        cambiarPestana(btn.dataset.tab);
+    });
+});
+
+function cambiarPestana(tabId) {
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+        btn.classList.toggle('active', btn.dataset.tab === tabId);
+    });
+    document.querySelectorAll('.tab-panel').forEach(function (panel) {
+        panel.classList.toggle('active', panel.id === 'tab-' + tabId);
+    });
+}
+
+function mostrarTablaAmortizacion(tieneDatos) {
+    document.getElementById('tabla-vacia').classList.toggle('hidden', tieneDatos);
+    document.querySelector('.tabla-wrapper').classList.toggle('hidden', !tieneDatos);
+}
 
 function formatearMoneda(valor) {
     return valor.toLocaleString('es-MX', {
@@ -102,6 +121,8 @@ function procesarSimulacion() {
     document.getElementById('total-iva').textContent = formatearMoneda(acumuladoIVA);
     document.getElementById('total-pagar').textContent = formatearMoneda(acumuladoPagos);
     document.getElementById('resumen').classList.remove('hidden');
+    mostrarTablaAmortizacion(true);
+    cambiarPestana('amortizacion');
 }
 
 function limpiarFormulario() {
@@ -114,6 +135,8 @@ function limpiarFormulario() {
     actualizarTotalesFinanciamiento();
 
     document.querySelector('#tabla-amortizacion tbody').innerHTML = '';
+    mostrarTablaAmortizacion(false);
+    cambiarPestana('cotizacion');
     document.getElementById('resumen').classList.add('hidden');
     document.getElementById('pago-promedio').textContent = '$0.00';
     document.getElementById('total-intereses').textContent = '$0.00';
@@ -127,3 +150,4 @@ document.getElementById('credit-form').addEventListener('submit', function (even
 });
 
 actualizarTotalesFinanciamiento();
+mostrarTablaAmortizacion(false);
