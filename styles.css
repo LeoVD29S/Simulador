@@ -50,6 +50,7 @@ label {
 }
 
 input[type="number"],
+input[type="text"],
 select {
     padding: 10px 12px;
     border: 1px solid #cbd5e0;
@@ -59,7 +60,15 @@ select {
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+input.readonly {
+    background-color: #edf2f7;
+    color: #2d3748;
+    font-weight: 600;
+    cursor: default;
+}
+
 input[type="number"]:focus,
+input[type="text"]:not(.readonly):focus,
 select:focus {
     outline: none;
     border-color: #003b73;
@@ -70,12 +79,12 @@ select:focus {
     grid-column: 1 / -1;
     display: flex;
     justify-content: center;
+    gap: 12px;
     margin-top: 10px;
 }
 
-#btn-calcular {
-    background-color: #003b73;
-    color: #ffffff;
+#btn-cotizar,
+#btn-limpiar {
     border: none;
     padding: 12px 32px;
     font-size: 1rem;
@@ -85,12 +94,27 @@ select:focus {
     transition: background-color 0.2s, transform 0.1s;
 }
 
-#btn-calcular:hover {
+#btn-cotizar {
+    background-color: #003b73;
+    color: #ffffff;
+}
+
+#btn-cotizar:hover {
     background-color: #002a52;
 }
 
-#btn-calcular:active {
+#btn-cotizar:active,
+#btn-limpiar:active {
     transform: scale(0.98);
+}
+
+.btn-secundario {
+    background-color: #e2e8f0;
+    color: #2d3748;
+}
+
+.btn-secundario:hover {
+    background-color: #cbd5e0;
 }
 
 .resumen {
